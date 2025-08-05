@@ -1,0 +1,6 @@
+loan_number,finance_type,bucket,amount
+LOAN999,auto,principal,40000
+LOAN001,invalid_type,principal,40000
+LOAN002,auto,invalid_bucket,40000
+LOAN003,real_estate,interest,50000
+LOAN004,auto,principal,-1000 

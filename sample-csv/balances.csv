@@ -1,0 +1,6 @@
+loan_number,finance_type,bucket,amount
+LOAN001,auto,principal,40000
+LOAN001,auto,interest,10000
+LOAN002,real_estate,principal,75000
+LOAN003,auto,principal,80000
+LOAN003,auto,interest,40000 

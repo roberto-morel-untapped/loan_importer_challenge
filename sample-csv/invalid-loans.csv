@@ -1,0 +1,6 @@
+number,contract_date,total_amount,installments
+LOAN001,12/25/2020,50000,60
+LOAN001,12/26/2021,60000,72
+LOAN002,invalid-date,75000,84
+LOAN003,12/25/2021,-1000,120
+LOAN004,12/25/2021,50000,0 

@@ -1,0 +1,6 @@
+loan_number,full_name,birth_date,phone_number
+LOAN999,John Doe,05/15/1985,+1-555-123-4567
+LOAN001,,05/15/1985,+1-555-123-4567
+LOAN002,Jane Smith,invalid-date,555-987-6543
+LOAN003,Bob Johnson,12/03/1978,123
+LOAN004,Alice Brown,12/03/1978,+1-555-456-7890-123456789 
