@@ -17,42 +17,23 @@ export class ImportController {
   @UseInterceptors(
     FilesInterceptor('files', 3, {
       fileFilter: (req, file, callback) => {
-        if (
-          file.mimetype === 'text/csv' ||
-          file.originalname.endsWith('.csv')
-        ) {
-          callback(null, true);
-        } else {
-          callback(
-            new BadRequestException('Only CSV files are allowed'),
-            false,
-          );
-        }
+        // TODO: Implement file type validation
+        // Only allow CSV files
+        callback(null, true);
       },
     }),
   )
   async importFiles(
     @UploadedFiles() files: Express.Multer.File[],
   ): Promise<ImportResponseDto> {
-    if (!files || files.length !== 3) {
-      throw new BadRequestException('Exactly 3 CSV files are required');
-    }
+    // TODO: Implement file validation
+    // - Check if exactly 3 files are provided
+    // - Validate file names (loans.csv, consumers.csv, balances.csv)
+    // - Extract files by their original names
 
-    // Extract files by filename since they all have the same field name
-    const loansFile = files.find((f) => f.originalname === 'loans.csv');
-    const consumersFile = files.find((f) => f.originalname === 'consumers.csv');
-    const balancesFile = files.find((f) => f.originalname === 'balances.csv');
+    // TODO: Call the service to process the import
+    // return this.importService.processImport(loansFile, consumersFile, balancesFile);
 
-    if (!loansFile || !consumersFile || !balancesFile) {
-      throw new BadRequestException(
-        'Files must be named: loans.csv, consumers.csv, balances.csv',
-      );
-    }
-
-    return this.importService.processImport(
-      loansFile,
-      consumersFile,
-      balancesFile,
-    );
+    throw new BadRequestException('Implementation required');
   }
 }

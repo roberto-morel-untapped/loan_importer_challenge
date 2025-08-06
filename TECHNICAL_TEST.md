@@ -82,7 +82,7 @@ yarn start:dev
 ### 2. Test with Sample Files
 
 ```bash
-node test-import.js
+node test-api.js
 ```
 
 ### 3. Test with Invalid Data
@@ -176,6 +176,6 @@ yarn test
 
 - **[README.md](./README.md)** - Complete project specifications and API documentation
 - **[Sample CSV files](./sample-csv/)** - Test data for validation
-- **[Test script](./test-import.js)** - API testing utility
+- **[Test script](./test-api.js)** - API testing utility
 
 Good luck!

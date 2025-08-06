@@ -13,23 +13,10 @@ export function IsValidBucket(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          if (typeof value !== 'string') {
-            return false;
-          }
-
-          const obj = args.object as any;
-          const financeType = obj.finance_type;
-
-          if (!financeType) {
-            return false;
-          }
-
-          if (financeType === 'real_estate') {
-            return value === 'principal';
-          } else if (financeType === 'auto') {
-            return value === 'principal' || value === 'interest';
-          }
-
+          // TODO: Implement bucket validation based on finance_type
+          // - Get finance_type from the object
+          // - For 'real_estate': bucket must be 'principal'
+          // - For 'auto': bucket must be 'principal' or 'interest'
           return false;
         },
         defaultMessage(_args: ValidationArguments) {
