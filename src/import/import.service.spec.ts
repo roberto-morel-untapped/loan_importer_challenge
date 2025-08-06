@@ -18,17 +18,51 @@ describe('ImportService', () => {
 
   describe('processImport', () => {
     it('should process valid CSV files successfully', async () => {
-      // TODO: Implement test for successful import
-      // 1. Create mock CSV files with valid data
-      // 2. Call processImport
-      // 3. Assert successful response
+      // TODO: Implement test for valid CSV import
+      // - Create mock files with valid data
+      // - Call processImport
+      // - Assert success response with data
+      expect(true).toBe(true);
     });
 
-    it('should return errors for invalid data', async () => {
-      // TODO: Implement test for invalid data
-      // 1. Create mock CSV files with invalid data
-      // 2. Call processImport
-      // 3. Assert error response
+    it('should handle past dates in contract_date', async () => {
+      // TODO: Implement test for past date validation
+      // - Create mock files with past dates
+      // - Call processImport
+      // - Assert error response
+      expect(true).toBe(true);
+    });
+
+    it('should handle duplicate loan numbers', async () => {
+      // TODO: Implement test for duplicate loan numbers
+      // - Create mock files with duplicate loan numbers
+      // - Call processImport
+      // - Assert error response
+      expect(true).toBe(true);
+    });
+
+    it('should handle invalid bucket rules', async () => {
+      // TODO: Implement test for invalid bucket validation
+      // - Create mock files with invalid bucket combinations
+      // - Call processImport
+      // - Assert error response
+      expect(true).toBe(true);
+    });
+
+    it('should handle cross-reference validation', async () => {
+      // TODO: Implement test for cross-reference validation
+      // - Create mock files with invalid loan number references
+      // - Call processImport
+      // - Assert error response
+      expect(true).toBe(true);
+    });
+
+    it('should handle total amount mismatch', async () => {
+      // TODO: Implement test for total amount validation
+      // - Create mock files where balance amounts don't match loan total
+      // - Call processImport
+      // - Assert error response
+      expect(true).toBe(true);
     });
   });
-}); 
+});

@@ -13,13 +13,14 @@ export function IsDateInRange(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          // TODO: Implement date range validation
-          // 1. Parse MM/DD/YYYY format
-          // 2. Check if date is in the future
-          // 3. Check if date is not more than 10 years ahead
+          // TODO: Implement date validation
+          // - Parse MM/DD/YYYY format
+          // - Check if date is valid
+          // - Ensure date is in the future
+          // - Ensure date is not more than 10 years ahead
           return false;
         },
-        defaultMessage(args: ValidationArguments) {
+        defaultMessage(_args: ValidationArguments) {
           return 'Date must be in MM/DD/YYYY format, in the future and not more than 10 years ahead';
         },
       },

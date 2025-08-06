@@ -6,4 +6,4 @@ import { ImportService } from './import.service';
   controllers: [ImportController],
   providers: [ImportService],
 })
-export class ImportModule {} 
+export class ImportModule {}

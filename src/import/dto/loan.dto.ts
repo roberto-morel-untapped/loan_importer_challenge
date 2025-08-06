@@ -1,4 +1,5 @@
-import { IsString, IsInt, Min, IsNotEmpty } from 'class-validator';
+import { IsString, IsInt, Min, IsNotEmpty, Matches } from 'class-validator';
+import { IsDateInRange } from '../../validators';
 
 export class LoanDto {
   @IsString()
@@ -6,6 +7,10 @@ export class LoanDto {
   number: string;
 
   @IsString()
+  @Matches(/^\d{2}\/\d{2}\/\d{4}$/, {
+    message: 'Date must be in MM/DD/YYYY format',
+  })
+  @IsDateInRange()
   contract_date: string;
 
   @IsInt()
@@ -15,4 +20,4 @@ export class LoanDto {
   @IsInt()
   @Min(1)
   installments: number;
-} 
+}

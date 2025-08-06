@@ -14,16 +14,26 @@ export class ImportController {
   constructor(private readonly importService: ImportService) { }
 
   @Post()
-  @UseInterceptors(FilesInterceptor('files', 3))
+  @UseInterceptors(
+    FilesInterceptor('files', 3, {
+      fileFilter: (req, file, callback) => {
+        // TODO: Implement file type validation
+        // Only allow CSV files
+        callback(null, true);
+      },
+    }),
+  )
   async importFiles(
     @UploadedFiles() files: Express.Multer.File[],
   ): Promise<ImportResponseDto> {
-    // TODO: Implement file handling logic
-    // 1. Validate that exactly 3 files are uploaded
-    // 2. Extract files by field name (loans, consumers, balances)
-    // 3. Call importService.processImport with the three files
-    // 4. Return the result
+    // TODO: Implement file validation
+    // - Check if exactly 3 files are provided
+    // - Validate file names (loans.csv, consumers.csv, balances.csv)
+    // - Extract files by their original names
 
-    throw new BadRequestException('Not implemented');
+    // TODO: Call the service to process the import
+    // return this.importService.processImport(loansFile, consumersFile, balancesFile);
+
+    throw new BadRequestException('Implementation required');
   }
-} 
+}

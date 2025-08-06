@@ -1,4 +1,5 @@
 import { IsString, IsNumber, Min, IsIn } from 'class-validator';
+import { IsValidBucket } from '../../validators';
 
 export class BalanceDto {
   @IsString()
@@ -9,9 +10,10 @@ export class BalanceDto {
   finance_type: string;
 
   @IsString()
+  @IsValidBucket()
   bucket: string;
 
   @IsNumber()
   @Min(0)
   amount: number;
-} 
+}
