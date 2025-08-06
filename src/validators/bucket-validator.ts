@@ -1,4 +1,8 @@
-import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import {
+  registerDecorator,
+  ValidationOptions,
+  ValidationArguments,
+} from 'class-validator';
 
 export function IsValidBucket(validationOptions?: ValidationOptions) {
   return function (object: object, propertyName: string) {
@@ -9,16 +13,29 @@ export function IsValidBucket(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          // TODO: Implement bucket validation
-          // 1. Get finance_type from the object
-          // 2. For 'auto': bucket must be 'principal' or 'interest'
-          // 3. For 'real_estate': bucket must be 'principal'
+          if (typeof value !== 'string') {
+            return false;
+          }
+
+          const obj = args.object as any;
+          const financeType = obj.finance_type;
+
+          if (!financeType) {
+            return false;
+          }
+
+          if (financeType === 'real_estate') {
+            return value === 'principal';
+          } else if (financeType === 'auto') {
+            return value === 'principal' || value === 'interest';
+          }
+
           return false;
         },
-        defaultMessage(args: ValidationArguments) {
+        defaultMessage(_args: ValidationArguments) {
           return 'Invalid bucket for finance type';
         },
       },
     });
   };
-} 
+}

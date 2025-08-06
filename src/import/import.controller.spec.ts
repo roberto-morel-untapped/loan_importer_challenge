@@ -29,18 +29,122 @@ describe('ImportController', () => {
 
   describe('importFiles', () => {
     it('should process valid files successfully', async () => {
-      // TODO: Implement test for successful file processing
-      // 1. Create mock files
-      // 2. Mock service response
-      // 3. Call importFiles
-      // 4. Assert successful response
+      const mockFiles = [
+        {
+          fieldname: 'files',
+          originalname: 'loans.csv',
+          buffer: Buffer.from('number,contract_date,total_amount,installments\nLOAN001,12/25/2025,50000,60'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'consumers.csv',
+          buffer: Buffer.from('loan_number,full_name,birth_date,phone_number\nLOAN001,John Doe,01/15/1990,1234567890'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'balances.csv',
+          buffer: Buffer.from('loan_number,finance_type,bucket,amount\nLOAN001,auto,principal,50000'),
+        },
+      ] as Express.Multer.File[];
+
+      const mockResponse = {
+        message: 'Valid import',
+        loans: [],
+        consumers: [],
+        balances: [],
+      };
+
+      jest.spyOn(service, 'processImport').mockResolvedValue(mockResponse);
+
+      const result = await controller.importFiles(mockFiles);
+
+      expect(service.processImport).toHaveBeenCalledWith(
+        mockFiles[0],
+        mockFiles[1],
+        mockFiles[2],
+      );
+      expect(result).toEqual(mockResponse);
     });
 
     it('should handle missing files', async () => {
-      // TODO: Implement test for missing files
-      // 1. Test with no files
-      // 2. Test with wrong number of files
-      // 3. Assert appropriate error responses
+      const mockFiles = [
+        {
+          fieldname: 'files',
+          originalname: 'loans.csv',
+          buffer: Buffer.from('number,contract_date,total_amount,installments\nLOAN001,12/25/2025,50000,60'),
+        },
+      ] as Express.Multer.File[];
+
+      await expect(controller.importFiles(mockFiles)).rejects.toThrow(
+        'Exactly 3 CSV files are required',
+      );
+    });
+
+    it('should handle wrong number of files', async () => {
+      const mockFiles = [
+        {
+          fieldname: 'files',
+          originalname: 'loans.csv',
+          buffer: Buffer.from('number,contract_date,total_amount,installments\nLOAN001,12/25/2025,50000,60'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'consumers.csv',
+          buffer: Buffer.from('loan_number,full_name,birth_date,phone_number\nLOAN001,John Doe,01/15/1990,1234567890'),
+        },
+      ] as Express.Multer.File[];
+
+      await expect(controller.importFiles(mockFiles)).rejects.toThrow(
+        'Exactly 3 CSV files are required',
+      );
+    });
+
+    it('should handle missing required files', async () => {
+      const mockFiles = [
+        {
+          fieldname: 'files',
+          originalname: 'loans.csv',
+          buffer: Buffer.from('number,contract_date,total_amount,installments\nLOAN001,12/25/2025,50000,60'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'consumers.csv',
+          buffer: Buffer.from('loan_number,full_name,birth_date,phone_number\nLOAN001,John Doe,01/15/1990,1234567890'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'wrong-name.csv',
+          buffer: Buffer.from('loan_number,finance_type,bucket,amount\nLOAN001,auto,principal,50000'),
+        },
+      ] as Express.Multer.File[];
+
+      await expect(controller.importFiles(mockFiles)).rejects.toThrow(
+        'Files must be named: loans.csv, consumers.csv, balances.csv',
+      );
+    });
+
+    it('should handle service errors', async () => {
+      const mockFiles = [
+        {
+          fieldname: 'files',
+          originalname: 'loans.csv',
+          buffer: Buffer.from('number,contract_date,total_amount,installments\nLOAN001,12/25/2025,50000,60'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'consumers.csv',
+          buffer: Buffer.from('loan_number,full_name,birth_date,phone_number\nLOAN001,John Doe,01/15/1990,1234567890'),
+        },
+        {
+          fieldname: 'files',
+          originalname: 'balances.csv',
+          buffer: Buffer.from('loan_number,finance_type,bucket,amount\nLOAN001,auto,principal,50000'),
+        },
+      ] as Express.Multer.File[];
+
+      jest.spyOn(service, 'processImport').mockRejectedValue(new Error('Service error'));
+
+      await expect(controller.importFiles(mockFiles)).rejects.toThrow('Service error');
     });
   });
-}); 
+});

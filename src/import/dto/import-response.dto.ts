@@ -14,4 +14,4 @@ export class ImportResponseDto {
     consumers?: ImportErrorDto[];
     balances?: ImportErrorDto[];
   };
-} 
+}
